@@ -13,19 +13,45 @@ import { Input } from "@/components/ui/input";
 import logo from "@/assets/logo-lGLL0Zb0.png";
 import { Label } from "@radix-ui/react-label";
 import { Link } from "react-router-dom";
-
+import { createRegister } from "@/services/api/user";
+import { Spinner } from "@/components/ui/spinner";
+import { toast } from "react-hot-toast";
+import { useState } from "react";
 export function Signup() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleSignup = async (e) => {
+    if (!email || !password || !username)
+      return toast.error("Please fill all fields");
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const response = await createRegister({ email, password, username });
+      console.log(response);
+      setLoading(false);
+      toast.success("Signup successful");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      toast.error("Signup failed");
+    }
+  };
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-[#020024] via-[#5044e5] to-[#00d4ff]">
       <Card className="w-full max-w-sm">
         <CardHeader className="flex justify-center items-center">
-          <img src={logo} className="w-15 h-15" alt="" />
+          <Link to="/">
+            <img src={logo} className="w-15 h-15" alt="" />
+          </Link>
         </CardHeader>
         <CardContent>
           <form>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Input
+                  onChange={(e) => setEmail(e.target.value)}
                   id="email"
                   type="email"
                   placeholder="Enter Your Email"
@@ -34,7 +60,8 @@ export function Signup() {
               </div>
               <div className="grid gap-2">
                 <Input
-                  id="name"
+                  onChange={(e) => setUsername(e.target.value)}
+                  id="username"
                   type="text"
                   placeholder="Enter Your Username"
                   required
@@ -42,6 +69,7 @@ export function Signup() {
               </div>
               <div className="grid gap-2">
                 <Input
+                  onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   placeholder="Enter Your Password"
                   type="password"
@@ -52,7 +80,11 @@ export function Signup() {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-4">
-          <Button type="submit" className="w-full bg-blue-700 text-white">
+          <Button
+            onClick={handleSignup}
+            type="submit"
+            className="w-full bg-blue-700 text-white"
+          >
             Signup
           </Button>
           <Label className="text-center mt-4">

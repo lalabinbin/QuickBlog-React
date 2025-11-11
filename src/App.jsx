@@ -8,18 +8,20 @@ import BlogDetails from "./pages/BlogDetails";
 import CreateBlog from "./pages/CreateBlog";
 import Layout from "./components/Layout";
 import MyPost from "./pages/MyPost";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster position="top-right" />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/blogdetails" element={<BlogDetails />} />
-          <Route path="/createblog" element={<CreateBlog />} />
-          <Route path="/mypost" element={<MyPost />} />
+          <Route path="/blog-details/:id" element={<BlogDetails />} />
+          <Route path="/create-blog" element={<CreateBlog />} />
+          <Route path="/my-post" element={<MyPost />} />
         </Route>
       </Routes>
     </BrowserRouter>
