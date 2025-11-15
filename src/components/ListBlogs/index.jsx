@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Logo from "@/assets/logo-lGLL0Zb0.png";
 import { Input } from "@/components/ui/input";
-import { DialogAuth } from "@/components/DialogAuth";
 import { Link } from "react-router-dom";
 import loadingFiles from "@/assets/loading_files.json";
 import Lottie from "lottie-react";
 import MyLoader from "@/components/MyLoader";
-function ListBlogs({ blogs, fetchBlogs, loading }) {
+function ListBlogs({ blogs = [], loading = false }) {
   if (loading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">

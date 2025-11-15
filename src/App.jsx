@@ -9,21 +9,26 @@ import CreateBlog from "./pages/CreateBlog";
 import Layout from "./components/Layout";
 import MyPost from "./pages/MyPost";
 import { Toaster } from "react-hot-toast";
+import { AuthContextProvider } from "./contexts/AuthContext";
+import UserManagement from "./pages/UserManagement";
 
 function App() {
   return (
     <BrowserRouter>
-      <Toaster position="top-right" />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog-details/:id" element={<BlogDetails />} />
-          <Route path="/create-blog" element={<CreateBlog />} />
-          <Route path="/my-post" element={<MyPost />} />
-        </Route>
-      </Routes>
+      <AuthContextProvider>
+        <Toaster position="top-right" />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog-details/:id" element={<BlogDetails />} />
+            <Route path="/create-blog" element={<CreateBlog />} />
+            <Route path="/my-post" element={<MyPost />} />
+            <Route path="/user-management" element={<UserManagement />} />
+          </Route>
+        </Routes>
+      </AuthContextProvider>
     </BrowserRouter>
   );
 }

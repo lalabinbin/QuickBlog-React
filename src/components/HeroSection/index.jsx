@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Logo from "@/assets/logo-lGLL0Zb0.png";
 import { Input } from "@/components/ui/input";
-import { DialogAuth } from "@/components/DialogAuth";
 function HeroSection({ handleSearch, search, setSearch }) {
   return (
     <div>

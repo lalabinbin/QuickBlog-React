@@ -13,26 +13,30 @@ import { Input } from "@/components/ui/input";
 import logo from "@/assets/logo-lGLL0Zb0.png";
 import { Label } from "@radix-ui/react-label";
 import { Link } from "react-router-dom";
-import { createLogin } from "@/services/api/user";
+import { login } from "@/services/api/user";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "react-hot-toast";
+import AuthContext from "@/contexts/AuthContext";
+import { useContext } from "react";
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { loginUser } = useContext(AuthContext);
+
   const handleLogin = async (e) => {
     if (!email || !password) return toast.error("Please fill all fields");
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await createLogin({ email, password });
+      const response = await loginUser(email, password);
       console.log(response);
-      setLoading(false);
-      toast.success("Login successful");
+      toast.success(response.data.message || "Login successful");
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
+    } finally {
       setLoading(false);
-      toast.error("Login failed");
     }
   };
   return (

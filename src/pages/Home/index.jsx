@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "@/assets/logo-lGLL0Zb0.png";
 import { Input } from "@/components/ui/input";
-import { DialogAuth } from "@/components/DialogAuth";
 import HeroSection from "@/components/HeroSection";
 import ListBlogs from "@/components/ListBlogs";
 import { getDataBlog } from "@/services/api/blog";
@@ -16,6 +15,7 @@ function Home() {
       const response = await getDataBlog();
       setBlogs(response.data.items);
       setSearchBlogs(response.data.items);
+      
     } finally {
       setLoading(false);
     }
@@ -44,7 +44,7 @@ function Home() {
             setSearch={setSearch}
             handleSearch={handleSearch}
           />
-          <ListBlogs blogs={blogs} loading={loading} fetchBlogs={fetchBlogs} />
+          <ListBlogs blogs={blogs} loading={loading} />
         </div>
       </div>
     </div>

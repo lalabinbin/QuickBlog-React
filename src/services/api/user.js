@@ -1,13 +1,18 @@
 // src/services/api/endpoints.js
-import apiInstance from './index';
+import apiInstance from "./index";
 
 // POST: Tương tự
-export const createLogin = async (userData) => {
-  const response = await apiInstance.post('/auth/login', userData);
+export const login = async (userData) => {
+  const response = await apiInstance.post("/auth/login", userData);
   return response;
 };
 
 export const createRegister = async (userData) => {
-  const response = await apiInstance.post('/auth/register', userData);
+  const response = await apiInstance.post("/auth/register", userData);
+  return response;
+};
+
+export const getMe = async () => {
+  const response = await apiInstance.get("/auth/me");
   return response;
 };
