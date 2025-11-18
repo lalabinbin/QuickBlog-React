@@ -12,7 +12,6 @@ export const AuthContextProvider = ({ children }) => {
       const res = await login({ email, password });
       if (res.status === 200) {
         setUserInfo(res.data);
-        toast.success(res.data.message || "Login successful");
         localStorage.setItem("userInfo", JSON.stringify(res.data));
 
         const meRes = await getMe();
@@ -26,7 +25,7 @@ export const AuthContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || "Login failed");
+      throw error;
     }
   };
 

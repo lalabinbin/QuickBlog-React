@@ -16,3 +16,13 @@ export const getMe = async () => {
   const response = await apiInstance.get("/auth/me");
   return response;
 };
+
+export const getDataUser = async () => {
+  const response = await apiInstance.get("/users");
+  return response;
+};
+
+export const deleteUser = async (userId) => {
+  const response = await apiInstance.delete(`/users/${userId}`);
+  return response;
+};

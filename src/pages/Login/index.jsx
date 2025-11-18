@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import logo from "@/assets/logo-lGLL0Zb0.png";
 import { Label } from "@radix-ui/react-label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/services/api/user";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "react-hot-toast";
@@ -23,7 +23,7 @@ export function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { loginUser } = useContext(AuthContext);
-
+  const negative = useNavigate();
   const handleLogin = async (e) => {
     if (!email || !password) return toast.error("Please fill all fields");
     e.preventDefault();
@@ -31,10 +31,11 @@ export function Login() {
       setLoading(true);
       const response = await loginUser(email, password);
       console.log(response);
-      toast.success(response.data.message || "Login successful");
-      window.location.href = "/";
+      toast.success(response?.data?.message || "Login successful");
+      negative("/");
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
